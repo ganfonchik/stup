@@ -155,6 +155,7 @@ function loadMainScreen() {
     : "Candidates";
   
   document.getElementById("roleTitle").innerText = `${roleText} for ${currentUser.name}`;
+  document.getElementById("filterPanel").classList.remove("open");
   showScreen("main");
   renderCard();
   updateCounter();
@@ -295,12 +296,13 @@ let filters = {
   level: ''
 };
 
-function openFilterModal() {
-  document.getElementById("filterModal").classList.remove("hidden");
+function toggleFilterPanel() {
+  const panel = document.getElementById("filterPanel");
+  panel.classList.toggle("open");
 }
 
-function closeFilterModal() {
-  document.getElementById("filterModal").classList.add("hidden");
+function closeFilterPanel() {
+  document.getElementById("filterPanel").classList.remove("open");
 }
 
 function applyFilters() {
@@ -310,7 +312,8 @@ function applyFilters() {
   filters.level = document.getElementById("filterLevel").value;
   
   currentIndex = 0;
-  showCard();
+  renderCard();
+  updateCounter();
 }
 
 function resetFilters() {
@@ -327,7 +330,8 @@ function resetFilters() {
   document.getElementById("filterLevel").value = '';
   
   currentIndex = 0;
-  showCard();
+  renderCard();
+  updateCounter();
 }
 
 function getFilteredJobs() {
@@ -354,3 +358,16 @@ function getFilteredJobs() {
     return true;
   });
 }
+
+// Close panel when clicking outside (backdrop)
+document.addEventListener('click', function(event) {
+  const filterPanel = document.getElementById('filterPanel');
+  const filterToggle = document.querySelector('.filter-toggle');
+  
+  if (filterPanel && filterPanel.classList.contains('open')) {
+    // Check if click is outside both panel and toggle button
+    if (!filterPanel.contains(event.target) && event.target !== filterToggle) {
+      filterPanel.classList.remove('open');
+    }
+  }
+}, true);

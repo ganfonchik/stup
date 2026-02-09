@@ -76,24 +76,77 @@
 
   <!-- MAIN FEED SCREEN -->
   <div id="main" class="screen hidden">
-    <div class="header">
-      <h2 id="roleTitle"></h2>
-      <button class="filter-btn" onclick="openFilterModal()" title="Filter cards">⚙️ Filter</button>
-      <button class="logout-btn" onclick="logout()">↓ Exit</button>
-    </div>
+    <button class="filter-toggle" onclick="toggleFilterPanel()">☰ Filter</button>
+    
+    <!-- SIDEBAR FILTER PANEL -->
+    <aside id="filterPanel" class="filter-panel">
+      <div class="filter-panel-header">
+        <h3>Filter Cards</h3>
+        <button class="close-filter-btn" onclick="toggleFilterPanel()">✕</button>
+      </div>
+      
+      <div class="filter-panel-content">
+        <div class="filter-section">
+          <label>IT Direction:</label>
+          <select id="filterDirection" onchange="applyFilters()">
+            <option value="">All</option>
+            <option value="frontend">Frontend Developer</option>
+            <option value="backend">Backend Developer</option>
+            <option value="fullstack">Full Stack Developer</option>
+            <option value="devops">DevOps Engineer</option>
+            <option value="data">Data Scientist</option>
+            <option value="qa">QA Engineer</option>
+            <option value="mobile">Mobile Developer</option>
+            <option value="ai">AI/ML Engineer</option>
+          </select>
+        </div>
 
-    <div class="card-container">
-      <div class="card" id="jobCard"></div>
-    </div>
+        <div class="filter-section">
+          <label>Min Projects:</label>
+          <input type="number" id="filterMinProjects" min="0" max="100" placeholder="0" onchange="applyFilters()">
+        </div>
 
-    <div class="actions">
-      <button class="dislike" onclick="swipe(false)" title="Not interested">❌ Pass</button>
-      <button class="super-like" onclick="swipe('super')" title="Very interested">⭐</button>
-      <button class="like" onclick="swipe(true)" title="Interested">❤️ Like</button>
-    </div>
+        <div class="filter-section">
+          <label>Max Projects:</label>
+          <input type="number" id="filterMaxProjects" min="0" max="100" placeholder="100" onchange="applyFilters()">
+        </div>
 
-    <div class="counter" id="counter"></div>
-  </div>
+        <div class="filter-section">
+          <label>Experience Level:</label>
+          <select id="filterLevel" onchange="applyFilters()">
+            <option value="">All</option>
+            <option value="junior">Junior (0-2 years)</option>
+            <option value="middle">Middle (2-5 years)</option>
+            <option value="senior">Senior (5+ years)</option>
+          </select>
+        </div>
+
+        <div class="filter-actions">
+          <button class="primary" onclick="toggleFilterPanel()">Close</button>
+          <button class="secondary" onclick="resetFilters()">Reset</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+      <div class="header">
+        <h2 id="roleTitle"></h2>
+        <button class="logout-btn" onclick="logout()">↓ Exit</button>
+      </div>
+
+      <div class="card-container">
+        <div class="card" id="jobCard"></div>
+      </div>
+
+      <div class="actions">
+        <button class="dislike" onclick="swipe(false)" title="Not interested">❌ Pass</button>
+        <button class="super-like" onclick="swipe('super')" title="Very interested">⭐</button>
+        <button class="like" onclick="swipe(true)" title="Interested">❤️ Like</button>
+      </div>
+
+      <div class="counter" id="counter"></div>
+    </div>
 
   <!-- CHAT SCREEN -->
   <div id="chatScreen" class="screen hidden">
@@ -111,56 +164,6 @@
         placeholder="Type a message..."
         onkeydown="sendMessage(event)"
       >
-    </div>
-  </div>
-
-  <!-- FILTER MODAL -->
-  <div id="filterModal" class="modal hidden">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3>Filter Cards</h3>
-        <button class="close-btn" onclick="closeFilterModal()">×</button>
-      </div>
-      
-      <div class="filter-section">
-        <label>IT Direction:</label>
-        <select id="filterDirection" onchange="applyFilters()">
-          <option value="">All</option>
-          <option value="frontend">Frontend Developer</option>
-          <option value="backend">Backend Developer</option>
-          <option value="fullstack">Full Stack Developer</option>
-          <option value="devops">DevOps Engineer</option>
-          <option value="data">Data Scientist</option>
-          <option value="qa">QA Engineer</option>
-          <option value="mobile">Mobile Developer</option>
-          <option value="ai">AI/ML Engineer</option>
-        </select>
-      </div>
-
-      <div class="filter-section">
-        <label>Min Projects:</label>
-        <input type="number" id="filterMinProjects" min="0" max="100" placeholder="0" onchange="applyFilters()">
-      </div>
-
-      <div class="filter-section">
-        <label>Max Projects:</label>
-        <input type="number" id="filterMaxProjects" min="0" max="100" placeholder="100" onchange="applyFilters()">
-      </div>
-
-      <div class="filter-section">
-        <label>Experience Level:</label>
-        <select id="filterLevel" onchange="applyFilters()">
-          <option value="">All</option>
-          <option value="junior">Junior (0-2 years)</option>
-          <option value="middle">Middle (2-5 years)</option>
-          <option value="senior">Senior (5+ years)</option>
-        </select>
-      </div>
-
-      <div class="filter-actions">
-        <button class="primary" onclick="closeFilterModal()">Apply</button>
-        <button class="secondary" onclick="resetFilters()">Reset All</button>
-      </div>
     </div>
   </div>
 

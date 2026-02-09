@@ -564,63 +564,162 @@ textarea {
   transform: translateY(-2px);
 }
 
-/* ---- FILTER MODAL ---- */
-.modal {
+/* ---- FILTER SIDEBAR PANEL ---- */
+.filter-toggle {
   position: fixed;
-  top: 0;
+  left: 12px;
+  top: 12px;
+  z-index: 999;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
+}
+
+.filter-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+.filter-panel {
+  position: fixed;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal.hidden {
-  display: none !important;
-}
-
-.modal-content {
+  top: 0;
+  width: 280px;
+  height: 100vh;
   background: white;
-  border-radius: 16px;
-  padding: 24px;
-  width: 90%;
-  max-width: 400px;
-  max-height: 90vh;
+  box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+  transform: translateX(-100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 998;
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
-.modal-header {
+.filter-panel.open {
+  transform: translateX(0);
+}
+
+.filter-panel-header {
+  padding: 20px 16px;
+  border-bottom: 2px solid #f0f0f0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 12px;
-  border-bottom: 2px solid #f0f0f0;
+  gap: 12px;
 }
 
-.modal-header h3 {
+.filter-panel-header h3 {
   margin: 0;
-  font-size: 20px;
+  font-size: 18px;
   color: #1a1a1a;
 }
 
-.close-btn {
+.close-filter-btn {
   background: none;
   border: none;
-  font-size: 28px;
+  font-size: 24px;
   color: #999;
   cursor: pointer;
   padding: 0;
   margin: 0;
   transition: color 0.3s ease;
+  min-width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.close-btn:hover {
+.close-filter-btn:hover {
   color: #333;
+}
+
+.filter-panel-content {
+  padding: 0;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.filter-panel .filter-section {
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  margin: 0;
+}
+
+.filter-panel .filter-section label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.filter-panel select,
+.filter-panel input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.filter-panel select:focus,
+.filter-panel input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.filter-panel .filter-actions {
+  padding: 16px;
+  border-top: 2px solid #f0f0f0;
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.filter-panel .filter-actions button {
+  flex: 1;
+  padding: 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.filter-panel .primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.filter-panel .primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.filter-panel .secondary {
+  background: #f0f0f0;
+  color: #333;
+  border: 2px solid #e0e0e0;
+}
+
+.filter-panel .secondary:hover {
+  background: #f8f8f8;
+  border-color: #667eea;
+  color: #667eea;
 }
 
 .filter-section {
@@ -679,4 +778,30 @@ textarea {
 .filter-actions .secondary:hover {
   background: #f8f8f8;
   border-color: #667eea;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+#main {
+  padding: 0;
+  position: relative;
+}
+
+#main .header {
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+#main .header h2 {
+  margin: 0;
+  flex: 1;
+  font-size: 18px;
 }
