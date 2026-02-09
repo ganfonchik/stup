@@ -800,6 +800,77 @@ textarea {
   gap: 12px;
 }
 
+/* ---- THREE-COLUMN LAYOUT FOR DESKTOP (APPLY ONLY TO #main) ---- */
+@media (min-width: 900px) {
+  /* Make only the main screen a three-column layout so forms stay centered */
+  #main {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 0;
+    min-height: 100vh;
+  }
+
+  /* Left menu inside #main */
+  #main > .side-menu,
+  #main > aside.side-menu {
+    position: relative;
+    transform: translateX(0) !important;
+    width: 280px;
+    height: 100vh;
+    box-shadow: none;
+    border-right: 1px solid #f0f0f0;
+    overflow-y: auto;
+    flex: 0 0 280px;
+  }
+
+  /* Hide mobile menu toggle on desktop inside main */
+  #main .menu-toggle {
+    display: none;
+  }
+
+  /* Center content grows to fill available space */
+  #main > .main-content {
+    flex: 1 1 auto;
+    padding: 24px 32px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Keep card container aligned to top and centered horizontally */
+  #main .card-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 28px 0;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  /* Right statistics panel visible and scrollable when placed inside #main */
+  #main > .stats-panel,
+  #main aside.stats-panel {
+    position: relative;
+    transform: translateX(0) !important;
+    width: 320px;
+    height: 100vh;
+    box-shadow: none;
+    border-left: 1px solid #f0f0f0;
+    overflow-y: auto;
+    flex: 0 0 320px;
+  }
+
+  /* hide redundant statistics button when panel visible */
+  #main .stats-btn {
+    display: none;
+  }
+}
+
 #main .header h2 {
   margin: 0;
   flex: 1;

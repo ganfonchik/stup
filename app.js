@@ -155,7 +155,10 @@ function loadMainScreen() {
     : "Candidates";
   
   document.getElementById("roleTitle").innerText = `${roleText} for ${currentUser.name}`;
-  document.getElementById("filterPanel").classList.remove("open");
+  const sideMenu = document.getElementById("sideMenu");
+  if (sideMenu && sideMenu.classList.contains('open')) {
+    sideMenu.classList.remove('open');
+  }
   showScreen("main");
   renderCard();
   updateCounter();
@@ -218,6 +221,18 @@ function updateCounter() {
 // ---- SWIPE ----
 function swipe(like) {
   const filteredJobs = getFilteredJobs();
+  const currentJob = filteredJobs[currentIndex];
+  
+  // Add to favorites if super like
+  if (like === 'super' && currentJob) {
+    addToFavorites(currentJob);
+  }
+  
+  // Track likes
+  if (like === true) {
+    let likedCount = parseInt(localStorage.getItem("likedCount")) || 0;
+    localStorage.setItem("likedCount", likedCount + 1);
+  }
   
   if (like && Math.random() > 0.5) {
     showChat();
@@ -296,13 +311,17 @@ let filters = {
   level: ''
 };
 
-function toggleFilterPanel() {
-  const panel = document.getElementById("filterPanel");
-  panel.classList.toggle("open");
+function toggleMenu() {
+  const menu = document.getElementById("sideMenu");
+  menu.classList.toggle("open");
+  updateAccountInfo();
 }
 
-function closeFilterPanel() {
-  document.getElementById("filterPanel").classList.remove("open");
+function updateAccountInfo() {
+  const accountInfo = document.getElementById("accountInfo");
+  if (currentUser) {
+    accountInfo.innerHTML = `<p class="user-info">${currentUser.name}<br><small>${currentUser.email}</small></p>`;
+  }
 }
 
 function applyFilters() {
@@ -359,15 +378,112 @@ function getFilteredJobs() {
   });
 }
 
-// Close panel when clicking outside (backdrop)
+// Close menu when clicking outside (backdrop)
 document.addEventListener('click', function(event) {
-  const filterPanel = document.getElementById('filterPanel');
-  const filterToggle = document.querySelector('.filter-toggle');
+  const sideMenu = document.getElementById('sideMenu');
+  const menuToggle = document.querySelector('.menu-toggle');
   
-  if (filterPanel && filterPanel.classList.contains('open')) {
-    // Check if click is outside both panel and toggle button
-    if (!filterPanel.contains(event.target) && event.target !== filterToggle) {
-      filterPanel.classList.remove('open');
+  if (sideMenu && sideMenu.classList.contains('open')) {
+    // Check if click is outside both menu and toggle button
+    if (!sideMenu.contains(event.target) && event.target !== menuToggle) {
+      sideMenu.classList.remove('open');
     }
   }
 }, true);
+
+// ---- STATISTICS & FAVORITES ----
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+let stats = {
+  viewed: 0,
+  liked: 0,
+  favorites: 0
+};
+
+function toggleStatsPanel() {
+  const panel = document.getElementById("statsPanel");
+  panel.classList.toggle("open");
+  updateStatistics();
+}
+
+function updateStatistics() {
+  stats.viewed = currentIndex;
+  stats.liked = localStorage.getItem("likedCount") ? parseInt(localStorage.getItem("likedCount")) : 0;
+  stats.favorites = favorites.length;
+  
+  document.getElementById("totalViewed").textContent = stats.viewed;
+  document.getElementById("totalLiked").textContent = stats.liked;
+  document.getElementById("totalFavorites").textContent = stats.favorites;
+  
+  renderFavoritesList();
+}
+
+function renderFavoritesList() {
+  const favoritesList = document.getElementById("favoritesList");
+  
+  if (favorites.length === 0) {
+    favoritesList.innerHTML = '<p class="empty-message">No favorites yet. Add some with the ⭐ button!</p>';
+    return;
+  }
+  
+  favoritesList.innerHTML = favorites.map(job => `
+    <div class="favorite-item">
+      <h5 style="margin: 0 0 4px 0;">${job.title}</h5>
+      <p style="margin: 0; font-size: 12px; color: #666;">${job.company}</p>
+    </div>
+  `).join('');
+}
+
+function addToFavorites(job) {
+  if (!favorites.find(fav => fav.title === job.title)) {
+    favorites.push(job);
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+    updateStatistics();
+  }
+}
+
+// ---- SCREEN NAVIGATION ----
+function goToMainScreen() {
+  showScreen("main");
+  document.getElementById("sideMenu").classList.remove("open");
+}
+
+function goToChatsScreen() {
+  showScreen("chatsScreen");
+  renderChatsList();
+}
+
+function backToChats() {
+  goToChatsScreen();
+}
+
+function renderChatsList() {
+  const chatsList = document.getElementById("chatsList");
+  
+  // Simulated chats - replace with real data
+  const mockChats = [
+    { id: 1, company: "Google", lastMessage: "We'd like to interview you", time: "2h" },
+    { id: 2, company: "Microsoft", lastMessage: "Your profile matches our needs", time: "4h" },
+    { id: 3, company: "Apple", lastMessage: "Are you interested in our role?", time: "1d" }
+  ];
+  
+  if (mockChats.length === 0) {
+    chatsList.innerHTML = '<div class="empty-state"><p>No messages yet</p><p class="small">Messages from companies will appear here</p></div>';
+    return;
+  }
+  
+  chatsList.innerHTML = '<div class="chats-list-inner">' + mockChats.map(chat => `
+    <div class="chat-item" onclick="openChat(${chat.id})">
+      <div class="chat-item-header">
+        <h4>${chat.company}</h4>
+        <span class="chat-time">${chat.time}</span>
+      </div>
+      <p class="chat-item-message">${chat.lastMessage}</p>
+    </div>
+  `).join('') + '</div>';
+}
+
+function openChat(chatId) {
+  showScreen("chatScreen");
+  document.getElementById("matchTitle").textContent = "Chat #" + chatId;
+  document.getElementById("chat").innerHTML = '<p style="color: #999; text-align: center; margin-top: 20px;">Chat messages will load here</p>';
+}

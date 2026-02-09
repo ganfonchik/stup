@@ -74,65 +74,80 @@
     <p class="form-footer">Already have account? <a href="#" onclick="goToLoginScreen(); return false;">Login here</a></p>
   </div>
 
-  <!-- MAIN FEED SCREEN -->
+  <!-- MAIN FEED SCREEN - THREE COLUMN LAYOUT -->
   <div id="main" class="screen hidden">
-    <button class="filter-toggle" onclick="toggleFilterPanel()">☰ Filter</button>
+    <button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
     
-    <!-- SIDEBAR FILTER PANEL -->
-    <aside id="filterPanel" class="filter-panel">
-      <div class="filter-panel-header">
-        <h3>Filter Cards</h3>
-        <button class="close-filter-btn" onclick="toggleFilterPanel()">✕</button>
+    <!-- LEFT SIDEBAR MENU -->
+    <aside id="sideMenu" class="side-menu">
+      <div class="menu-header">
+        <h3>JobSwipe</h3>
+        <button class="close-menu-btn" onclick="toggleMenu()">✕</button>
       </div>
       
-      <div class="filter-panel-content">
-        <div class="filter-section">
-          <label>IT Direction:</label>
-          <select id="filterDirection" onchange="applyFilters()">
-            <option value="">All</option>
-            <option value="frontend">Frontend Developer</option>
-            <option value="backend">Backend Developer</option>
-            <option value="fullstack">Full Stack Developer</option>
-            <option value="devops">DevOps Engineer</option>
-            <option value="data">Data Scientist</option>
-            <option value="qa">QA Engineer</option>
-            <option value="mobile">Mobile Developer</option>
-            <option value="ai">AI/ML Engineer</option>
-          </select>
+      <div class="menu-content">
+        <!-- FILTERS SECTION -->
+        <div class="menu-section">
+          <h4>Filters</h4>
+          
+          <div class="filter-item">
+            <label>IT Direction:</label>
+            <select id="filterDirection" onchange="applyFilters()">
+              <option value="">All</option>
+              <option value="frontend">Frontend Developer</option>
+              <option value="backend">Backend Developer</option>
+              <option value="fullstack">Full Stack Developer</option>
+              <option value="devops">DevOps Engineer</option>
+              <option value="data">Data Scientist</option>
+              <option value="qa">QA Engineer</option>
+              <option value="mobile">Mobile Developer</option>
+              <option value="ai">AI/ML Engineer</option>
+            </select>
+          </div>
+
+          <div class="filter-item">
+            <label>Min Projects:</label>
+            <input type="number" id="filterMinProjects" min="0" max="100" placeholder="0" onchange="applyFilters()">
+          </div>
+
+          <div class="filter-item">
+            <label>Max Projects:</label>
+            <input type="number" id="filterMaxProjects" min="0" max="100" placeholder="100" onchange="applyFilters()">
+          </div>
+
+          <div class="filter-item">
+            <label>Experience Level:</label>
+            <select id="filterLevel" onchange="applyFilters()">
+              <option value="">All</option>
+              <option value="junior">Junior (0-2 years)</option>
+              <option value="middle">Middle (2-5 years)</option>
+              <option value="senior">Senior (5+ years)</option>
+            </select>
+          </div>
+
+          <button class="secondary" onclick="resetFilters()" style="width: 100%; margin-top: 12px;">Reset Filters</button>
         </div>
 
-        <div class="filter-section">
-          <label>Min Projects:</label>
-          <input type="number" id="filterMinProjects" min="0" max="100" placeholder="0" onchange="applyFilters()">
+        <!-- ACCOUNT SECTION -->
+        <div class="menu-section">
+          <h4>Account</h4>
+          <div class="account-info" id="accountInfo"></div>
+          <button class="menu-button" onclick="goToLoginScreen(); toggleMenu();">🔄 Switch Account</button>
+          <button class="menu-button danger" onclick="logout();">🚪 Logout</button>
         </div>
 
-        <div class="filter-section">
-          <label>Max Projects:</label>
-          <input type="number" id="filterMaxProjects" min="0" max="100" placeholder="100" onchange="applyFilters()">
-        </div>
-
-        <div class="filter-section">
-          <label>Experience Level:</label>
-          <select id="filterLevel" onchange="applyFilters()">
-            <option value="">All</option>
-            <option value="junior">Junior (0-2 years)</option>
-            <option value="middle">Middle (2-5 years)</option>
-            <option value="senior">Senior (5+ years)</option>
-          </select>
-        </div>
-
-        <div class="filter-actions">
-          <button class="primary" onclick="toggleFilterPanel()">Close</button>
-          <button class="secondary" onclick="resetFilters()">Reset</button>
+        <!-- NOTIFICATIONS SECTION -->
+        <div class="menu-section">
+          <h4>Notifications</h4>
+          <button class="menu-button" onclick="goToChatsScreen(); toggleMenu();">💬 Messages <span id="notificationBadge" class="badge hidden">0</span></button>
         </div>
       </div>
     </aside>
 
-    <!-- MAIN CONTENT -->
+    <!-- CENTER CONTENT - TINDER CARDS -->
     <div class="main-content">
       <div class="header">
         <h2 id="roleTitle"></h2>
-        <button class="logout-btn" onclick="logout()">↓ Exit</button>
       </div>
 
       <div class="card-container">
@@ -141,18 +156,51 @@
 
       <div class="actions">
         <button class="dislike" onclick="swipe(false)" title="Not interested">❌ Pass</button>
-        <button class="super-like" onclick="swipe('super')" title="Very interested">⭐</button>
+        <button class="super-like" onclick="swipe('super')" title="Very interested">⭐ Favorite</button>
         <button class="like" onclick="swipe(true)" title="Interested">❤️ Like</button>
       </div>
 
       <div class="counter" id="counter"></div>
     </div>
 
+    <!-- RIGHT SIDEBAR - STATISTICS & FAVORITES -->
+    <aside id="statsPanel" class="stats-panel">
+      <div class="stats-header">
+        <h3>My Statistics</h3>
+        <button class="close-stats-btn" onclick="toggleStatsPanel()">✕</button>
+      </div>
+      
+      <div class="stats-content">
+        <div class="stat-item">
+          <span class="stat-label">Viewed:</span>
+          <span class="stat-value" id="totalViewed">0</span>
+        </div>
+        
+        <div class="stat-item">
+          <span class="stat-label">Liked:</span>
+          <span class="stat-value" id="totalLiked">0</span>
+        </div>
+        
+        <div class="stat-item">
+          <span class="stat-label">Favorites:</span>
+          <span class="stat-value" id="totalFavorites">0</span>
+        </div>
+
+        <div class="favorites-section">
+          <h4>My Favorites</h4>
+          <div class="favorites-list" id="favoritesList">
+            <p class="empty-message">No favorites yet. Add some with the ⭐ button!</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
   <!-- CHAT SCREEN -->
   <div id="chatScreen" class="screen hidden">
     <div class="chat-header">
       <button class="back-btn" onclick="backToMain()">←</button>
-      <h3 id="matchTitle">It's a match!</h3>
+      <h3 id="matchTitle">Company Chat</h3>
     </div>
 
     <div class="chat" id="chat"></div>
@@ -164,6 +212,21 @@
         placeholder="Type a message..."
         onkeydown="sendMessage(event)"
       >
+    </div>
+  </div>
+
+  <!-- CHATS LIST SCREEN -->
+  <div id="chatsScreen" class="screen hidden">
+    <div class="chat-header">
+      <button class="back-btn" onclick="goToMainScreen()">←</button>
+      <h2>Messages</h2>
+    </div>
+
+    <div class="chats-list" id="chatsList">
+      <div class="empty-state">
+        <p>No messages yet</p>
+        <p class="small">Messages from companies will appear here</p>
+      </div>
     </div>
   </div>
 
