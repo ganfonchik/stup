@@ -27,6 +27,21 @@ body {
   flex-direction: column;
 }
 
+/* ---- APP WIDE MODE (MAIN SCREEN) ---- */
+.app.app--main {
+  max-width: 1400px;
+  width: 100%;
+  margin: 24px auto;
+}
+
+@media (max-width: 899px) {
+  .app.app--main {
+    margin: 0;
+    border-radius: 0;
+    max-width: 100%;
+  }
+}
+
 .screen {
   padding: 40px 24px;
   flex: 1;
@@ -790,6 +805,7 @@ textarea {
 #main {
   padding: 0;
   position: relative;
+  min-height: 100vh;
 }
 
 #main .header {
@@ -800,11 +816,172 @@ textarea {
   gap: 12px;
 }
 
+/* ---- MAIN LAYOUT (BASE) ---- */
+.menu-toggle {
+  position: fixed;
+  left: 12px;
+  top: 12px;
+  z-index: 1001;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.35);
+}
+
+.side-menu {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 280px;
+  height: 100vh;
+  background: white;
+  border-right: 1px solid #f0f0f0;
+  box-shadow: 2px 0 24px rgba(0, 0, 0, 0.12);
+  transform: translateX(-100%);
+  transition: transform 0.35s ease;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.side-menu.open {
+  transform: translateX(0);
+}
+
+.menu-header {
+  padding: 16px;
+  border-bottom: 2px solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.menu-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.menu-section h4 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #666;
+}
+
+.menu-section .filter-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.menu-section label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #666;
+}
+
+.menu-button {
+  width: 100%;
+  background: #f6f6f6;
+  color: #333;
+  border: 2px solid #e6e6e6;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.menu-button:hover {
+  border-color: #667eea;
+  color: #667eea;
+  background: #fafafa;
+}
+
+.menu-button.danger {
+  border-color: #ffd6d6;
+  color: #e03131;
+  background: #fff5f5;
+}
+
+.stats-panel {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 320px;
+  height: 100vh;
+  background: white;
+  border-left: 1px solid #f0f0f0;
+  box-shadow: -2px 0 24px rgba(0, 0, 0, 0.12);
+  transform: translateX(100%);
+  transition: transform 0.35s ease;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.stats-panel.open {
+  transform: translateX(0);
+}
+
+.stats-header {
+  padding: 16px;
+  border-bottom: 2px solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.stats-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.favorites-section h4 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #666;
+}
+
+.favorite-item {
+  padding: 10px 12px;
+  border: 1px solid #f0f0f0;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background: #fafafa;
+}
+
 /* ---- THREE-COLUMN LAYOUT FOR DESKTOP (APPLY ONLY TO #main) ---- */
 @media (min-width: 900px) {
   /* Make only the main screen a three-column layout so forms stay centered */
   #main {
-    display: flex;
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr) 320px;
     gap: 20px;
     align-items: flex-start;
     padding: 0;
@@ -816,12 +993,13 @@ textarea {
   #main > aside.side-menu {
     position: relative;
     transform: translateX(0) !important;
-    width: 280px;
-    height: 100vh;
+    left: auto;
+    top: auto;
+    width: auto;
+    height: auto;
     box-shadow: none;
     border-right: 1px solid #f0f0f0;
     overflow-y: auto;
-    flex: 0 0 280px;
   }
 
   /* Hide mobile menu toggle on desktop inside main */
@@ -831,7 +1009,7 @@ textarea {
 
   /* Center content grows to fill available space */
   #main > .main-content {
-    flex: 1 1 auto;
+    min-width: 0;
     padding: 24px 32px;
     min-height: 100vh;
     display: flex;
@@ -857,12 +1035,13 @@ textarea {
   #main aside.stats-panel {
     position: relative;
     transform: translateX(0) !important;
-    width: 320px;
-    height: 100vh;
+    right: auto;
+    top: auto;
+    width: auto;
+    height: auto;
     box-shadow: none;
     border-left: 1px solid #f0f0f0;
     overflow-y: auto;
-    flex: 0 0 320px;
   }
 
   /* hide redundant statistics button when panel visible */

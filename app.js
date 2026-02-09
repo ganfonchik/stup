@@ -16,6 +16,15 @@ fetch("data.json")
 function showScreen(screenId) {
   document.querySelectorAll(".screen").forEach(screen => screen.classList.add("hidden"));
   document.getElementById(screenId).classList.remove("hidden");
+
+  const appRoot = document.querySelector(".app");
+  if (appRoot) {
+    if (screenId === "main") {
+      appRoot.classList.add("app--main");
+    } else {
+      appRoot.classList.remove("app--main");
+    }
+  }
 }
 
 function goToStartScreen() {
