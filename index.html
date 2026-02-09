@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>JobSwipe — Find your IT match</title>
+  <title>JobSwipe — найди свою IT‑пару</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css">
 </head>
@@ -14,69 +14,69 @@
   <div id="startScreen" class="screen">
     <div class="logo-section">
       <h1>JobSwipe</h1>
-      <p class="subtitle">Tinder for IT professionals</p>
+      <p class="subtitle">Тиндер для IT‑специалистов</p>
     </div>
-    <button onclick="goToLoginScreen()">Login</button>
-    <button class="secondary" onclick="goToRegisterScreen()">Register</button>
+    <button onclick="goToLoginScreen()">Войти</button>
+    <button class="secondary" onclick="goToRegisterScreen()">Регистрация</button>
   </div>
 
   <!-- LOGIN SCREEN -->
   <div id="loginScreen" class="screen hidden">
     <div class="form-header">
-      <h2>Login</h2>
+      <h2>Вход</h2>
       <button class="back-btn" onclick="goToStartScreen()">←</button>
     </div>
 
     <div class="role-tabs">
-      <button class="tab-btn active" onclick="switchLoginRole('worker')">Worker</button>
-      <button class="tab-btn" onclick="switchLoginRole('employer')">Employer</button>
+      <button class="tab-btn active" data-role="worker" onclick="switchLoginRole('worker')">Соискатель</button>
+      <button class="tab-btn" data-role="employer" onclick="switchLoginRole('employer')">Работодатель</button>
     </div>
 
     <form onsubmit="handleLogin(event)">
-      <input type="email" id="loginEmail" placeholder="Email" required>
-      <input type="password" id="loginPassword" placeholder="Password" required>
-      <button type="submit" class="primary">Login</button>
+      <input type="email" id="loginEmail" placeholder="Почта" required>
+      <input type="password" id="loginPassword" placeholder="Пароль" required>
+      <button type="submit" class="primary">Войти</button>
     </form>
 
-    <p class="form-footer">No account? <a href="#" onclick="goToRegisterScreen(); return false;">Register here</a></p>
+    <p class="form-footer">Нет аккаунта? <a href="#" onclick="goToRegisterScreen(); return false;">Зарегистрироваться</a></p>
   </div>
 
   <!-- REGISTER SCREEN -->
   <div id="registerScreen" class="screen hidden">
     <div class="form-header">
-      <h2>Register</h2>
+      <h2>Регистрация</h2>
       <button class="back-btn" onclick="goToStartScreen()">←</button>
     </div>
 
     <div class="role-tabs">
-      <button class="tab-btn active" onclick="switchRegisterRole('worker')">Worker</button>
-      <button class="tab-btn" onclick="switchRegisterRole('employer')">Employer</button>
+      <button class="tab-btn active" data-role="worker" onclick="switchRegisterRole('worker')">Соискатель</button>
+      <button class="tab-btn" data-role="employer" onclick="switchRegisterRole('employer')">Работодатель</button>
     </div>
 
     <form onsubmit="handleRegister(event)">
-      <input type="text" id="registerName" placeholder="Full Name / Company Name" required>
-      <input type="email" id="registerEmail" placeholder="Email" required>
-      <input type="password" id="registerPassword" placeholder="Password" required>
+      <input type="text" id="registerName" placeholder="Имя и фамилия / Название компании" required>
+      <input type="email" id="registerEmail" placeholder="Почта" required>
+      <input type="password" id="registerPassword" placeholder="Пароль" required>
       
       <div id="workerFields">
-        <input type="text" id="registerSpecialty" placeholder="e.g., Frontend Developer">
-        <input type="text" id="registerSkills" placeholder="Skills (comma separated)">
+        <input type="text" id="registerSpecialty" placeholder="Например, Frontend‑разработчик">
+        <input type="text" id="registerSkills" placeholder="Навыки (через запятую)">
       </div>
 
       <div id="employerFields" class="hidden">
-        <input type="text" id="registerCompany" placeholder="Company Website">
-        <textarea id="registerDescription" placeholder="Company Description"></textarea>
+        <input type="text" id="registerCompany" placeholder="Сайт компании">
+        <textarea id="registerDescription" placeholder="Описание компании"></textarea>
       </div>
 
-      <button type="submit" class="primary">Register</button>
+      <button type="submit" class="primary">Зарегистрироваться</button>
     </form>
 
-    <p class="form-footer">Already have account? <a href="#" onclick="goToLoginScreen(); return false;">Login here</a></p>
+    <p class="form-footer">Уже есть аккаунт? <a href="#" onclick="goToLoginScreen(); return false;">Войти</a></p>
   </div>
 
   <!-- MAIN FEED SCREEN - THREE COLUMN LAYOUT -->
   <div id="main" class="screen hidden">
-    <button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
+    <button class="menu-toggle" onclick="toggleMenu()">☰ Меню</button>
     
     <!-- LEFT SIDEBAR MENU -->
     <aside id="sideMenu" class="side-menu">
@@ -88,58 +88,58 @@
       <div class="menu-content">
         <!-- FILTERS SECTION -->
         <div class="menu-section">
-          <h4>Filters</h4>
+          <h4>Фильтры</h4>
           
           <div class="filter-item">
-            <label>IT Direction:</label>
+            <label>Направление:</label>
             <select id="filterDirection" onchange="applyFilters()">
-              <option value="">All</option>
-              <option value="frontend">Frontend Developer</option>
-              <option value="backend">Backend Developer</option>
-              <option value="fullstack">Full Stack Developer</option>
-              <option value="devops">DevOps Engineer</option>
+              <option value="">Все</option>
+              <option value="frontend">Frontend‑разработчик</option>
+              <option value="backend">Backend‑разработчик</option>
+              <option value="fullstack">Fullstack‑разработчик</option>
+              <option value="devops">DevOps‑инженер</option>
               <option value="data">Data Scientist</option>
-              <option value="qa">QA Engineer</option>
-              <option value="mobile">Mobile Developer</option>
-              <option value="ai">AI/ML Engineer</option>
+              <option value="qa">QA‑инженер</option>
+              <option value="mobile">Мобильный разработчик</option>
+              <option value="ai">AI/ML‑инженер</option>
             </select>
           </div>
 
           <div class="filter-item">
-            <label>Min Projects:</label>
+            <label>Мин. проектов:</label>
             <input type="number" id="filterMinProjects" min="0" max="100" placeholder="0" onchange="applyFilters()">
           </div>
 
           <div class="filter-item">
-            <label>Max Projects:</label>
+            <label>Макс. проектов:</label>
             <input type="number" id="filterMaxProjects" min="0" max="100" placeholder="100" onchange="applyFilters()">
           </div>
 
           <div class="filter-item">
-            <label>Experience Level:</label>
+            <label>Уровень:</label>
             <select id="filterLevel" onchange="applyFilters()">
-              <option value="">All</option>
-              <option value="junior">Junior (0-2 years)</option>
-              <option value="middle">Middle (2-5 years)</option>
-              <option value="senior">Senior (5+ years)</option>
+              <option value="">Все</option>
+              <option value="junior">Джуниор (0–2 года)</option>
+              <option value="middle">Мидл (2–5 лет)</option>
+              <option value="senior">Сеньор (5+ лет)</option>
             </select>
           </div>
 
-          <button class="secondary" onclick="resetFilters()" style="width: 100%; margin-top: 12px;">Reset Filters</button>
+          <button class="secondary" onclick="resetFilters()" style="width: 100%; margin-top: 12px;">Сбросить фильтры</button>
         </div>
 
         <!-- ACCOUNT SECTION -->
         <div class="menu-section">
-          <h4>Account</h4>
+          <h4>Аккаунт</h4>
           <div class="account-info" id="accountInfo"></div>
-          <button class="menu-button" onclick="goToLoginScreen(); toggleMenu();">🔄 Switch Account</button>
-          <button class="menu-button danger" onclick="logout();">🚪 Logout</button>
+          <button class="menu-button" onclick="goToLoginScreen(); toggleMenu();">Сменить аккаунт</button>
+          <button class="menu-button danger" onclick="logout();">Выйти</button>
         </div>
 
         <!-- NOTIFICATIONS SECTION -->
         <div class="menu-section">
-          <h4>Notifications</h4>
-          <button class="menu-button" onclick="goToChatsScreen(); toggleMenu();">💬 Messages <span id="notificationBadge" class="badge hidden">0</span></button>
+          <h4>Уведомления</h4>
+          <button class="menu-button" onclick="goToChatsScreen(); toggleMenu();">Сообщения <span id="notificationBadge" class="badge hidden">0</span></button>
         </div>
       </div>
     </aside>
@@ -155,9 +155,9 @@
       </div>
 
       <div class="actions">
-        <button class="dislike" onclick="swipe(false)" title="Not interested">❌ Pass</button>
-        <button class="super-like" onclick="swipe('super')" title="Very interested">⭐ Favorite</button>
-        <button class="like" onclick="swipe(true)" title="Interested">❤️ Like</button>
+        <button class="dislike" onclick="swipe(false)" title="Не интересно">✖ Пропуск</button>
+        <button class="super-like" onclick="swipe('super')" title="Очень интересно">★ В избранное</button>
+        <button class="like" onclick="swipe(true)" title="Интересно">❤ Лайк</button>
       </div>
 
       <div class="counter" id="counter"></div>
@@ -166,30 +166,30 @@
     <!-- RIGHT SIDEBAR - STATISTICS & FAVORITES -->
     <aside id="statsPanel" class="stats-panel">
       <div class="stats-header">
-        <h3>My Statistics</h3>
+        <h3>Моя статистика</h3>
         <button class="close-stats-btn" onclick="toggleStatsPanel()">✕</button>
       </div>
       
       <div class="stats-content">
         <div class="stat-item">
-          <span class="stat-label">Viewed:</span>
+          <span class="stat-label">Просмотрено:</span>
           <span class="stat-value" id="totalViewed">0</span>
         </div>
         
         <div class="stat-item">
-          <span class="stat-label">Liked:</span>
+          <span class="stat-label">Понравилось:</span>
           <span class="stat-value" id="totalLiked">0</span>
         </div>
         
         <div class="stat-item">
-          <span class="stat-label">Favorites:</span>
+          <span class="stat-label">Избранное:</span>
           <span class="stat-value" id="totalFavorites">0</span>
         </div>
 
         <div class="favorites-section">
-          <h4>My Favorites</h4>
+          <h4>Избранное</h4>
           <div class="favorites-list" id="favoritesList">
-            <p class="empty-message">No favorites yet. Add some with the ⭐ button!</p>
+            <p class="empty-message">Пока нет избранного. Добавьте с помощью кнопки ★</p>
           </div>
         </div>
       </div>
@@ -200,7 +200,7 @@
   <div id="chatScreen" class="screen hidden">
     <div class="chat-header">
       <button class="back-btn" onclick="backToMain()">←</button>
-      <h3 id="matchTitle">Company Chat</h3>
+      <h3 id="matchTitle">Чат с компанией</h3>
     </div>
 
     <div class="chat" id="chat"></div>
@@ -209,7 +209,7 @@
       <input
         id="chatInput"
         type="text"
-        placeholder="Type a message..."
+        placeholder="Введите сообщение..."
         onkeydown="sendMessage(event)"
       >
     </div>
@@ -219,13 +219,13 @@
   <div id="chatsScreen" class="screen hidden">
     <div class="chat-header">
       <button class="back-btn" onclick="goToMainScreen()">←</button>
-      <h2>Messages</h2>
+      <h2>Сообщения</h2>
     </div>
 
     <div class="chats-list" id="chatsList">
       <div class="empty-state">
-        <p>No messages yet</p>
-        <p class="small">Messages from companies will appear here</p>
+        <p>Пока нет сообщений</p>
+        <p class="small">Сообщения от компаний появятся здесь</p>
       </div>
     </div>
   </div>

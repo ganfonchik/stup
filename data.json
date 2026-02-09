@@ -1,102 +1,122 @@
 [
   {
     "id": 1,
-    "title": "Senior Frontend Developer",
+    "title": "Старший Frontend‑разработчик",
     "company": "Google",
     "stack": "React, TypeScript, Node.js",
-    "format": "Remote",
-    "level": "Senior",
+    "format": "Удалённо",
+    "level": "Сеньор",
     "salary": "$150,000 - $200,000",
-    "description": "We're looking for an experienced Frontend Developer to join our innovative team. You'll work on cutting-edge products used by millions of users worldwide."
+    "image": "images/peop1.jpeg",
+    "summary": "Меня зовут Артём, 24 года. 3 года в фронтенде, люблю сложные интерфейсы и оптимизацию. Ищу сильную команду и продукт с аудиторией.",
+    "description": "Ищем опытного Frontend‑разработчика в нашу инновационную команду. Вы будете работать над продуктами, которыми пользуются миллионы людей по всему миру."
   },
   {
     "id": 2,
-    "title": "Full Stack Developer",
+    "title": "Fullstack‑разработчик",
     "company": "Stripe",
     "stack": "React, Python, PostgreSQL",
-    "format": "Hybrid (San Francisco)",
-    "level": "Mid",
+    "format": "Гибрид (Сан‑Франциско)",
+    "level": "Мидл",
     "salary": "$120,000 - $180,000",
-    "description": "Build payment solutions that power the internet. We're hiring passionate developers who love solving complex problems."
+    "image": "images/peop2.jpeg",
+    "summary": "Я Ирина, 22 года. Делаю фуллстек‑проекты на React + Python, люблю практику и пет‑проекты. Ищу стажировку или первую работу.",
+    "description": "Создавайте платёжные решения, которые двигают интернет. Мы ищем разработчиков, которые любят решать сложные задачи."
   },
   {
     "id": 3,
-    "title": "Mobile Developer (iOS)",
+    "title": "Мобильный разработчик (iOS)",
     "company": "Apple",
     "stack": "Swift, SwiftUI, Objective-C",
-    "format": "On-site (Cupertino)",
-    "level": "Mid",
+    "format": "Офис (Купертино)",
+    "level": "Мидл",
     "salary": "$130,000 - $170,000",
-    "description": "Create amazing experiences for billions of users. Help us build the next generation of iOS applications."
+    "image": "images/peop3.jpeg",
+    "summary": "Меня зовут Никита, 21 год. Пишу iOS‑приложения на SwiftUI, участвовал в хакатонах и делал 2 приложения в стор.",
+    "description": "Создавайте лучшие мобильные продукты для миллиардов пользователей. Помогите нам строить следующее поколение iOS‑приложений."
   },
   {
     "id": 4,
-    "title": "DevOps Engineer",
+    "title": "DevOps‑инженер",
     "company": "Netflix",
     "stack": "Kubernetes, Docker, AWS, Go",
-    "format": "Remote",
-    "level": "Senior",
+    "format": "Удалённо",
+    "level": "Сеньор",
     "salary": "$140,000 - $190,000",
-    "description": "Join our scalable infrastructure team and help us serve millions of users reliably and efficiently."
+    "image": "images/peop4.jpeg",
+    "summary": "Я Даниил, 25 лет. 2+ года с Kubernetes и CI/CD, люблю автоматизацию и надёжность. Ищу проект с реальной нагрузкой.",
+    "description": "Присоединяйтесь к команде инфраструктуры и помогите нам надежно и эффективно обслуживать миллионы пользователей."
   },
   {
     "id": 5,
     "title": "Data Scientist",
     "company": "Tesla",
     "stack": "Python, TensorFlow, SQL, Spark",
-    "format": "On-site (Palo Alto)",
-    "level": "Mid",
+    "format": "Офис (Пало‑Альто)",
+    "level": "Мидл",
     "salary": "$110,000 - $160,000",
-    "description": "Work on AI and machine learning projects that shape the future of electric vehicles and renewable energy."
+    "image": "images/peop5.jpeg",
+    "summary": "Я Мария, 23 года. Анализ данных и ML‑проекты в университете, люблю исследовать и визуализировать данные.",
+    "description": "Работайте над проектами в области ИИ и машинного обучения, которые формируют будущее электромобилей и зелёной энергетики."
   },
   {
     "id": 6,
-    "title": "Backend Engineer",
+    "title": "Backend‑инженер",
     "company": "Microsoft",
     "stack": "C#, .NET, Azure, SQL Server",
-    "format": "Hybrid (Seattle)",
-    "level": "Mid",
+    "format": "Гибрид (Сиэтл)",
+    "level": "Мидл",
     "salary": "$125,000 - $175,000",
-    "description": "Build scalable cloud solutions that empower businesses around the world with Microsoft's cloud platform."
+    "image": "images/peop6.jpeg",
+    "summary": "Меня зовут Егор, 24 года. Пишу надёжные API, люблю чистую архитектуру и тесты. Ищу команду, где можно расти.",
+    "description": "Создавайте масштабируемые облачные решения, которые помогают бизнесам по всему миру на платформе Microsoft."
   },
   {
     "id": 7,
-    "title": "UI/UX Designer",
+    "title": "UI/UX дизайнер",
     "company": "Figma",
     "stack": "Figma, Design Systems, CSS",
-    "format": "Remote",
-    "level": "Mid",
+    "format": "Удалённо",
+    "level": "Мидл",
     "salary": "$100,000 - $150,000",
-    "description": "Design the future of collaborative design tools. We craft beautiful, intuitive user experiences."
+    "image": "images/peop7.jpeg",
+    "summary": "Я Ольга, 20 лет. Делаю UI в Figma, работала над дизайн‑системой учебного сервиса. Люблю чистый и понятный UX.",
+    "description": "Проектируйте будущее инструментов совместного дизайна. Мы создаём красивые и интуитивные пользовательские интерфейсы."
   },
   {
     "id": 8,
-    "title": "QA Automation Engineer",
+    "title": "QA‑инженер по автоматизации",
     "company": "Amazon",
     "stack": "Selenium, Java, Python, Jenkins",
-    "format": "Hybrid (Seattle)",
-    "level": "Junior",
+    "format": "Гибрид (Сиэтл)",
+    "level": "Джуниор",
     "salary": "$80,000 - $120,000",
-    "description": "Ensure quality excellence in our products. Help us maintain the highest standards in testing and automation."
+    "image": "images/peop8.jpeg",
+    "summary": "Меня зовут Тимур, 19 лет. Автотесты на Selenium и API‑тестирование. Ищу первую стажировку в QA.",
+    "description": "Обеспечивайте качество продуктов. Помогите нам поддерживать высокие стандарты тестирования и автоматизации."
   },
   {
     "id": 9,
-    "title": "Security Engineer",
+    "title": "Инженер по безопасности",
     "company": "Meta",
     "stack": "Python, C++, Security Tools",
-    "format": "On-site (Menlo Park)",
-    "level": "Senior",
+    "format": "Офис (Менло‑Парк)",
+    "level": "Сеньор",
     "salary": "$160,000 - $210,000",
-    "description": "Protect billions of users from security threats. Work on cutting-edge security challenges at scale."
+    "image": "images/peop9.jpeg",
+    "summary": "Я Павел, 26 лет. Интересуюсь security, участвовал в CTF, делал аудит веб‑сервисов. Хочу работать с реальными кейсами.",
+    "description": "Защищайте миллиарды пользователей от угроз безопасности. Работайте над сложными задачами в масштабе."
   },
   {
     "id": 10,
-    "title": "Machine Learning Engineer",
+    "title": "Инженер по машинному обучению",
     "company": "OpenAI",
     "stack": "Python, PyTorch, CUDA, JAX",
-    "format": "Remote",
-    "level": "Senior",
+    "format": "Удалённо",
+    "level": "Сеньор",
     "salary": "$180,000 - $250,000",
-    "description": "Work on advanced AI models and systems. Join our mission to build safe, beneficial AGI."
+    "image": "images/peop10.jpeg",
+    "summary": "Я Артём, 23 года. Делаю ML‑проекты и участвую в исследовательских командах. Люблю экспериментировать с моделями.",
+    "description": "Работайте над передовыми моделями и системами ИИ. Присоединяйтесь к нашей миссии создавать безопасный и полезный AGI."
   }
 ]

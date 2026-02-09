@@ -77,7 +77,8 @@ function updateTabButtons(screenId, activeRole) {
   const screen = document.getElementById(screenId);
   const tabs = screen.querySelectorAll(".tab-btn");
   tabs.forEach(tab => {
-    if (tab.textContent.toLowerCase() === (activeRole === "worker" ? "worker" : "employer")) {
+    const role = tab.dataset.role;
+    if (role === activeRole) {
       tab.classList.add("active");
     } else {
       tab.classList.remove("active");
@@ -97,7 +98,7 @@ function handleLogin(event) {
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
     loadMainScreen();
   } else {
-    alert("Invalid email, password, or role mismatch");
+    alert("Неверная почта, пароль или роль");
   }
 }
 
@@ -109,7 +110,7 @@ function handleRegister(event) {
   const password = document.getElementById("registerPassword").value;
 
   if (usersDatabase[email]) {
-    alert("Email already registered!");
+    alert("Эта почта уже зарегистрирована!");
     return;
   }
 
@@ -135,7 +136,7 @@ function handleRegister(event) {
   currentUser = newUser;
   localStorage.setItem("currentUser", JSON.stringify(currentUser));
   
-  alert("Registration successful!");
+  alert("Регистрация успешна!");
   loadMainScreen();
 }
 
@@ -160,13 +161,13 @@ function autoLogin() {
 function loadMainScreen() {
   currentIndex = 0;
   const roleText = currentUserRole === "worker" 
-    ? "Job Vacancies" 
-    : "Candidates";
+    ? "Вакансии" 
+    : "Кандидаты";
   
-  document.getElementById("roleTitle").innerText = `${roleText} for ${currentUser.name}`;
+  document.getElementById("roleTitle").innerText = `${roleText} для ${currentUser.name}`;
   const sideMenu = document.getElementById("sideMenu");
-  if (sideMenu && sideMenu.classList.contains('open')) {
-    sideMenu.classList.remove('open');
+  if (sideMenu && sideMenu.classList.contains("open")) {
+    sideMenu.classList.remove("open");
   }
   showScreen("main");
   renderCard();
@@ -180,40 +181,50 @@ function renderCard() {
   if (currentIndex >= filteredJobs.length) {
     card.innerHTML = `
       <div class="no-more">
-        <h3>🎉 No more ${currentUserRole === "worker" ? "vacancies" : "candidates"}!</h3>
-        <p>Check back later for new ${currentUserRole === "worker" ? "job" : "candidate"} listings</p>
+        <h3>Больше нет ${currentUserRole === "worker" ? "вакансий" : "кандидатов"}!</h3>
+        <p>Загляните позже за новыми ${currentUserRole === "worker" ? "вакансиями" : "кандидатами"}</p>
       </div>
     `;
     return;
   }
 
   const item = filteredJobs[currentIndex];
+  const imageUrl = item.image || "images/peop1.jpeg";
+  const fallbackImageUrl = imageUrl.startsWith("images/") ? `../${imageUrl}` : imageUrl;
+  const summaryText = item.summary || "Кратко о кандидате: пока нет описания.";
   
   let cardHTML = `
+    <div class="card-media">
+      <img class="profile-photo" src="${imageUrl}" alt="${item.title}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackImageUrl}';">
+    </div>
     <div class="card-header">
       <h3>${item.title}</h3>
-      <span class="card-badge">${item.level || "All Levels"}</span>
+      <span class="card-badge">${item.level || "Любой уровень"}</span>
     </div>
     <div class="card-body">
       <div class="card-item">
-        <span class="label">Company:</span>
+        <span class="label">Компания:</span>
         <span class="value">${item.company}</span>
       </div>
       <div class="card-item">
-        <span class="label">Stack:</span>
+        <span class="label">Стек:</span>
         <span class="value">${item.stack}</span>
       </div>
       <div class="card-item">
-        <span class="label">Format:</span>
+        <span class="label">Формат:</span>
         <span class="value">${item.format}</span>
       </div>
       <div class="card-item">
-        <span class="label">Salary:</span>
-        <span class="value salary">${item.salary || '$TBD'}</span>
+        <span class="label">Зарплата:</span>
+        <span class="value salary">${item.salary || "По договорённости"}</span>
       </div>
     </div>
     <div class="card-description">
-      <p>${item.description || "Exciting opportunity to grow your skills!"}</p>
+      <p>${item.description || "Отличная возможность прокачать навыки!"}</p>
+    </div>
+    <div class="card-summary">
+      <h4>Краткое резюме</h4>
+      <p>${summaryText}</p>
     </div>
   `;
 
@@ -224,7 +235,7 @@ function updateCounter() {
   const counter = document.getElementById("counter");
   const filteredJobs = getFilteredJobs();
   const remaining = filteredJobs.length - currentIndex;
-  counter.textContent = `${Math.max(0, remaining)} left`;
+  counter.textContent = `Осталось: ${Math.max(0, remaining)}`;
 }
 
 // ---- SWIPE ----
@@ -233,7 +244,7 @@ function swipe(like) {
   const currentJob = filteredJobs[currentIndex];
   
   // Add to favorites if super like
-  if (like === 'super' && currentJob) {
+  if (like === "super" && currentJob) {
     addToFavorites(currentJob);
   }
   
@@ -261,17 +272,17 @@ function showChat() {
     ? item.company 
     : item.title;
   
-  document.getElementById("matchTitle").textContent = `Match with ${title}! 🎉`;
+  document.getElementById("matchTitle").textContent = `Совпадение с ${title}!`;
   showScreen("chatScreen");
 
   const chat = document.getElementById("chat");
   chat.innerHTML = "";
 
-  addMessage("System", `You matched with ${title}!`);
+  addMessage("Система", `У вас совпадение с ${title}!`);
   setTimeout(() => {
     addMessage("HR", currentUserRole === "worker" 
-      ? "Hi! We love your profile! Let's talk 😊" 
-      : "Great profile! Can we schedule an interview?");
+      ? "Привет! Нам очень понравился ваш профиль! Давайте обсудим 😊" 
+      : "Отличный профиль! Можем назначить интервью?");
   }, 800);
 }
 
@@ -287,16 +298,16 @@ function sendMessage(e) {
   const text = input.value.trim();
   if (!text) return;
 
-  addMessage("You", text);
+  addMessage("Вы", text);
   input.value = "";
 
   setTimeout(() => {
     const responses = [
-      "That sounds great!",
-      "Tell us more about your experience",
-      "When can you start?",
-      "Excellent! Let's move forward.",
-      "Looking forward to working with you!"
+      "Звучит отлично!",
+      "Расскажите подробнее о своём опыте",
+      "Когда вы можете начать?",
+      "Отлично! Давайте двигаться дальше.",
+      "Ждём сотрудничества!"
     ];
     const randomResponse = responses[Math.floor(Math.random() * responses.length)];
     addMessage("HR", randomResponse);
@@ -306,7 +317,7 @@ function sendMessage(e) {
 function addMessage(author, text) {
   const chat = document.getElementById("chat");
   const msg = document.createElement("div");
-  msg.className = `message ${author === "You" ? "user" : "hr"}`;
+  msg.className = `message ${author === "Вы" ? "user" : "hr"}`;
   msg.innerHTML = `<strong>${author}:</strong> ${text}`;
   chat.appendChild(msg);
   chat.scrollTop = chat.scrollHeight;
@@ -314,10 +325,10 @@ function addMessage(author, text) {
 
 // ---- FILTER FUNCTIONS ----
 let filters = {
-  direction: '',
+  direction: "",
   minProjects: 0,
   maxProjects: 100,
-  level: ''
+  level: ""
 };
 
 function toggleMenu() {
@@ -346,16 +357,16 @@ function applyFilters() {
 
 function resetFilters() {
   filters = {
-    direction: '',
+    direction: "",
     minProjects: 0,
     maxProjects: 100,
-    level: ''
+    level: ""
   };
   
-  document.getElementById("filterDirection").value = '';
-  document.getElementById("filterMinProjects").value = '0';
-  document.getElementById("filterMaxProjects").value = '100';
-  document.getElementById("filterLevel").value = '';
+  document.getElementById("filterDirection").value = "";
+  document.getElementById("filterMinProjects").value = "0";
+  document.getElementById("filterMaxProjects").value = "100";
+  document.getElementById("filterLevel").value = "";
   
   currentIndex = 0;
   renderCard();
@@ -378,9 +389,9 @@ function getFilteredJobs() {
     // Filter by experience level
     if (filters.level) {
       const yearsExp = job.yearsExperience || 0;
-      if (filters.level === 'junior' && yearsExp > 2) return false;
-      if (filters.level === 'middle' && (yearsExp <= 2 || yearsExp > 5)) return false;
-      if (filters.level === 'senior' && yearsExp <= 5) return false;
+      if (filters.level === "junior" && yearsExp > 2) return false;
+      if (filters.level === "middle" && (yearsExp <= 2 || yearsExp > 5)) return false;
+      if (filters.level === "senior" && yearsExp <= 5) return false;
     }
     
     return true;
@@ -388,14 +399,14 @@ function getFilteredJobs() {
 }
 
 // Close menu when clicking outside (backdrop)
-document.addEventListener('click', function(event) {
-  const sideMenu = document.getElementById('sideMenu');
-  const menuToggle = document.querySelector('.menu-toggle');
+document.addEventListener("click", function(event) {
+  const sideMenu = document.getElementById("sideMenu");
+  const menuToggle = document.querySelector(".menu-toggle");
   
-  if (sideMenu && sideMenu.classList.contains('open')) {
+  if (sideMenu && sideMenu.classList.contains("open")) {
     // Check if click is outside both menu and toggle button
     if (!sideMenu.contains(event.target) && event.target !== menuToggle) {
-      sideMenu.classList.remove('open');
+      sideMenu.classList.remove("open");
     }
   }
 }, true);
@@ -430,7 +441,7 @@ function renderFavoritesList() {
   const favoritesList = document.getElementById("favoritesList");
   
   if (favorites.length === 0) {
-    favoritesList.innerHTML = '<p class="empty-message">No favorites yet. Add some with the ⭐ button!</p>';
+    favoritesList.innerHTML = '<p class="empty-message">Пока нет избранного. Добавьте с помощью кнопки ★</p>';
     return;
   }
   
@@ -439,7 +450,7 @@ function renderFavoritesList() {
       <h5 style="margin: 0 0 4px 0;">${job.title}</h5>
       <p style="margin: 0; font-size: 12px; color: #666;">${job.company}</p>
     </div>
-  `).join('');
+  `).join("");
 }
 
 function addToFavorites(job) {
@@ -470,13 +481,13 @@ function renderChatsList() {
   
   // Simulated chats - replace with real data
   const mockChats = [
-    { id: 1, company: "Google", lastMessage: "We'd like to interview you", time: "2h" },
-    { id: 2, company: "Microsoft", lastMessage: "Your profile matches our needs", time: "4h" },
-    { id: 3, company: "Apple", lastMessage: "Are you interested in our role?", time: "1d" }
+    { id: 1, company: "Google", lastMessage: "Хотим пригласить вас на интервью", time: "2ч" },
+    { id: 2, company: "Microsoft", lastMessage: "Ваш профиль нам подходит", time: "4ч" },
+    { id: 3, company: "Apple", lastMessage: "Вам интересна эта позиция?", time: "1д" }
   ];
   
   if (mockChats.length === 0) {
-    chatsList.innerHTML = '<div class="empty-state"><p>No messages yet</p><p class="small">Messages from companies will appear here</p></div>';
+    chatsList.innerHTML = '<div class="empty-state"><p>Пока нет сообщений</p><p class="small">Сообщения от компаний появятся здесь</p></div>';
     return;
   }
   
@@ -488,11 +499,11 @@ function renderChatsList() {
       </div>
       <p class="chat-item-message">${chat.lastMessage}</p>
     </div>
-  `).join('') + '</div>';
+  `).join("") + '</div>';
 }
 
 function openChat(chatId) {
   showScreen("chatScreen");
-  document.getElementById("matchTitle").textContent = "Chat #" + chatId;
-  document.getElementById("chat").innerHTML = '<p style="color: #999; text-align: center; margin-top: 20px;">Chat messages will load here</p>';
+  document.getElementById("matchTitle").textContent = "Чат #" + chatId;
+  document.getElementById("chat").innerHTML = '<p style="color: #999; text-align: center; margin-top: 20px;">Сообщения чата появятся здесь</p>';
 }
