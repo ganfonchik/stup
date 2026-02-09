@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "title": "Senior Frontend Developer",
+    "company": "Google",
+    "stack": "React, TypeScript, Node.js",
+    "format": "Remote",
+    "level": "Senior",
+    "salary": "$150,000 - $200,000",
+    "description": "We're looking for an experienced Frontend Developer to join our innovative team. You'll work on cutting-edge products used by millions of users worldwide."
+  },
+  {
+    "id": 2,
+    "title": "Full Stack Developer",
+    "company": "Stripe",
+    "stack": "React, Python, PostgreSQL",
+    "format": "Hybrid (San Francisco)",
+    "level": "Mid",
+    "salary": "$120,000 - $180,000",
+    "description": "Build payment solutions that power the internet. We're hiring passionate developers who love solving complex problems."
+  },
+  {
+    "id": 3,
+    "title": "Mobile Developer (iOS)",
+    "company": "Apple",
+    "stack": "Swift, SwiftUI, Objective-C",
+    "format": "On-site (Cupertino)",
+    "level": "Mid",
+    "salary": "$130,000 - $170,000",
+    "description": "Create amazing experiences for billions of users. Help us build the next generation of iOS applications."
+  },
+  {
+    "id": 4,
+    "title": "DevOps Engineer",
+    "company": "Netflix",
+    "stack": "Kubernetes, Docker, AWS, Go",
+    "format": "Remote",
+    "level": "Senior",
+    "salary": "$140,000 - $190,000",
+    "description": "Join our scalable infrastructure team and help us serve millions of users reliably and efficiently."
+  },
+  {
+    "id": 5,
+    "title": "Data Scientist",
+    "company": "Tesla",
+    "stack": "Python, TensorFlow, SQL, Spark",
+    "format": "On-site (Palo Alto)",
+    "level": "Mid",
+    "salary": "$110,000 - $160,000",
+    "description": "Work on AI and machine learning projects that shape the future of electric vehicles and renewable energy."
+  },
+  {
+    "id": 6,
+    "title": "Backend Engineer",
+    "company": "Microsoft",
+    "stack": "C#, .NET, Azure, SQL Server",
+    "format": "Hybrid (Seattle)",
+    "level": "Mid",
+    "salary": "$125,000 - $175,000",
+    "description": "Build scalable cloud solutions that empower businesses around the world with Microsoft's cloud platform."
+  },
+  {
+    "id": 7,
+    "title": "UI/UX Designer",
+    "company": "Figma",
+    "stack": "Figma, Design Systems, CSS",
+    "format": "Remote",
+    "level": "Mid",
+    "salary": "$100,000 - $150,000",
+    "description": "Design the future of collaborative design tools. We craft beautiful, intuitive user experiences."
+  },
+  {
+    "id": 8,
+    "title": "QA Automation Engineer",
+    "company": "Amazon",
+    "stack": "Selenium, Java, Python, Jenkins",
+    "format": "Hybrid (Seattle)",
+    "level": "Junior",
+    "salary": "$80,000 - $120,000",
+    "description": "Ensure quality excellence in our products. Help us maintain the highest standards in testing and automation."
+  },
+  {
+    "id": 9,
+    "title": "Security Engineer",
+    "company": "Meta",
+    "stack": "Python, C++, Security Tools",
+    "format": "On-site (Menlo Park)",
+    "level": "Senior",
+    "salary": "$160,000 - $210,000",
+    "description": "Protect billions of users from security threats. Work on cutting-edge security challenges at scale."
+  },
+  {
+    "id": 10,
+    "title": "Machine Learning Engineer",
+    "company": "OpenAI",
+    "stack": "Python, PyTorch, CUDA, JAX",
+    "format": "Remote",
+    "level": "Senior",
+    "salary": "$180,000 - $250,000",
+    "description": "Work on advanced AI models and systems. Join our mission to build safe, beneficial AGI."
+  }
+]
