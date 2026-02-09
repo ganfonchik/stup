@@ -162,8 +162,9 @@ function loadMainScreen() {
 
 function renderCard() {
   const card = document.getElementById("jobCard");
+  const filteredJobs = getFilteredJobs();
 
-  if (currentIndex >= jobs.length) {
+  if (currentIndex >= filteredJobs.length) {
     card.innerHTML = `
       <div class="no-more">
         <h3>🎉 No more ${currentUserRole === "worker" ? "vacancies" : "candidates"}!</h3>
@@ -173,7 +174,7 @@ function renderCard() {
     return;
   }
 
-  const item = jobs[currentIndex];
+  const item = filteredJobs[currentIndex];
   
   let cardHTML = `
     <div class="card-header">
@@ -208,12 +209,15 @@ function renderCard() {
 
 function updateCounter() {
   const counter = document.getElementById("counter");
-  const remaining = jobs.length - currentIndex;
+  const filteredJobs = getFilteredJobs();
+  const remaining = filteredJobs.length - currentIndex;
   counter.textContent = `${Math.max(0, remaining)} left`;
 }
 
 // ---- SWIPE ----
 function swipe(like) {
+  const filteredJobs = getFilteredJobs();
+  
   if (like && Math.random() > 0.5) {
     showChat();
     return;
@@ -226,7 +230,8 @@ function swipe(like) {
 
 // ---- CHAT ----
 function showChat() {
-  const item = jobs[currentIndex];
+  const filteredJobs = getFilteredJobs();
+  const item = filteredJobs[currentIndex];
   const title = currentUserRole === "worker" 
     ? item.company 
     : item.title;
@@ -280,4 +285,72 @@ function addMessage(author, text) {
   msg.innerHTML = `<strong>${author}:</strong> ${text}`;
   chat.appendChild(msg);
   chat.scrollTop = chat.scrollHeight;
+}
+
+// ---- FILTER FUNCTIONS ----
+let filters = {
+  direction: '',
+  minProjects: 0,
+  maxProjects: 100,
+  level: ''
+};
+
+function openFilterModal() {
+  document.getElementById("filterModal").classList.remove("hidden");
+}
+
+function closeFilterModal() {
+  document.getElementById("filterModal").classList.add("hidden");
+}
+
+function applyFilters() {
+  filters.direction = document.getElementById("filterDirection").value;
+  filters.minProjects = parseInt(document.getElementById("filterMinProjects").value) || 0;
+  filters.maxProjects = parseInt(document.getElementById("filterMaxProjects").value) || 100;
+  filters.level = document.getElementById("filterLevel").value;
+  
+  currentIndex = 0;
+  showCard();
+}
+
+function resetFilters() {
+  filters = {
+    direction: '',
+    minProjects: 0,
+    maxProjects: 100,
+    level: ''
+  };
+  
+  document.getElementById("filterDirection").value = '';
+  document.getElementById("filterMinProjects").value = '0';
+  document.getElementById("filterMaxProjects").value = '100';
+  document.getElementById("filterLevel").value = '';
+  
+  currentIndex = 0;
+  showCard();
+}
+
+function getFilteredJobs() {
+  return jobs.filter(job => {
+    // Filter by direction
+    if (filters.direction && job.specialty && job.specialty.toLowerCase() !== filters.direction.toLowerCase()) {
+      return false;
+    }
+    
+    // Filter by projects count
+    const projectsCount = job.projectsCount || 0;
+    if (projectsCount < filters.minProjects || projectsCount > filters.maxProjects) {
+      return false;
+    }
+    
+    // Filter by experience level
+    if (filters.level) {
+      const yearsExp = job.yearsExperience || 0;
+      if (filters.level === 'junior' && yearsExp > 2) return false;
+      if (filters.level === 'middle' && (yearsExp <= 2 || yearsExp > 5)) return false;
+      if (filters.level === 'senior' && yearsExp <= 5) return false;
+    }
+    
+    return true;
+  });
 }
