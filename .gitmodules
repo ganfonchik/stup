@@ -1,0 +1,3 @@
+[submodule "stup"]
+	path = stup
+	url = https://github.com/ganfonchik/stup.git
